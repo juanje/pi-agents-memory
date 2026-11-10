@@ -208,11 +208,14 @@ function filterConversation(entries: SessionEntry[]): string {
   const parts: string[] = [];
 
   for (const entry of entries) {
-    const type = entry.type;
-    if (type !== "user" && type !== "assistant") continue;
+    // Real Pi entries store messages as { type: "message", message: { role, content } }
+    if (entry.type !== "message") continue;
+
+    const role = entry.message?.role;
+    if (role !== "user" && role !== "assistant") continue;
 
     const content = entry.message?.content;
-    const prefix = type === "user" ? "USER" : "AGENT";
+    const prefix = role === "user" ? "USER" : "AGENT";
 
     if (typeof content === "string") {
       const trimmed = content.trim();

@@ -261,8 +261,8 @@ describe("composeContext", () => {
 describe("filterConversation", () => {
   it("extracts user and assistant text", () => {
     const entries = [
-      { type: "user", message: { content: "How do I fix this?" } },
-      { type: "assistant", message: { content: "Try updating the config." } },
+      { type: "message", message: { role: "user", content: "How do I fix this?" } },
+      { type: "message", message: { role: "assistant", content: "Try updating the config." } },
     ];
     const result = filterConversation(entries);
     expect(result).toBe("USER: How do I fix this?\n\nAGENT: Try updating the config.");
@@ -271,8 +271,9 @@ describe("filterConversation", () => {
   it("handles array content blocks", () => {
     const entries = [
       {
-        type: "assistant",
+        type: "message",
         message: {
+          role: "assistant",
           content: [
             { type: "text", text: "Here is the fix." },
             { type: "tool_use", text: "ignored" },
@@ -285,20 +286,21 @@ describe("filterConversation", () => {
     expect(result).toBe("AGENT: Here is the fix.\n\nAGENT: And a follow-up.");
   });
 
-  it("skips non-user/assistant entries", () => {
+  it("skips non-user/assistant roles and entry types", () => {
     const entries = [
-      { type: "system", message: { content: "system prompt" } },
-      { type: "user", message: { content: "hello" } },
-      { type: "tool_result", message: { content: "tool output" } },
+      { type: "message", message: { role: "system", content: "system prompt" } },
+      { type: "message", message: { role: "user", content: "hello" } },
+      { type: "message", message: { role: "toolResult", content: "tool output" } },
+      { type: "custom_message", customType: "agents-memory", content: "injected" },
     ];
     expect(filterConversation(entries)).toBe("USER: hello");
   });
 
   it("skips empty content", () => {
     const entries = [
-      { type: "user", message: { content: "" } },
-      { type: "user", message: { content: "  " } },
-      { type: "user", message: { content: "actual content" } },
+      { type: "message", message: { role: "user", content: "" } },
+      { type: "message", message: { role: "user", content: "  " } },
+      { type: "message", message: { role: "user", content: "actual content" } },
     ];
     expect(filterConversation(entries)).toBe("USER: actual content");
   });
@@ -516,7 +518,7 @@ describe("agentsMemory extension", () => {
       const { pi, handlers } = createMockPi();
       agentsMemory(pi);
 
-      const entries = [{ type: "user", message: { content: "hello" } }];
+      const entries = [{ type: "message", message: { role: "user", content: "hello" } }];
       const ctx = mockCtx(join(dir, "test-project"), entries);
 
       await handlers.session_start({}, ctx);
@@ -544,7 +546,7 @@ describe("agentsMemory extension", () => {
       const { pi, handlers } = createMockPi();
       agentsMemory(pi);
 
-      const entries = [{ type: "user", message: { content: "hello" } }];
+      const entries = [{ type: "message", message: { role: "user", content: "hello" } }];
       const ctx = mockCtx(join(dir, "test-project"), entries);
 
       await handlers.session_start({}, ctx);
@@ -572,7 +574,7 @@ describe("agentsMemory extension", () => {
       const { pi, handlers } = createMockPi();
       agentsMemory(pi);
 
-      const entries = [{ type: "user", message: { content: "hello" } }];
+      const entries = [{ type: "message", message: { role: "user", content: "hello" } }];
       const ctx = mockCtx(join(dir, "test-project"), entries);
 
       await handlers.session_start({}, ctx);
