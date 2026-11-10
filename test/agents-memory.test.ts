@@ -128,6 +128,16 @@ describe("extractField", () => {
     expect(extractField(index, "Stack")).toBe("python");
   });
 
+  it("normalizes stack to lowercase", () => {
+    const idx = "# buddy\n\n- Stack: TypeScript (Tauri v2, Svelte 5)\n";
+    expect(extractField(idx, "Stack")).toBe("typescript");
+  });
+
+  it("keeps only the first path segment of a free-text stack", () => {
+    const idx = "# buddy\n\n- Stack: TypeScript/Markdown memory tooling\n";
+    expect(extractField(idx, "Stack")).toBe("typescript");
+  });
+
   it("extracts team", () => {
     expect(extractField(index, "Team")).toBe("backend");
   });

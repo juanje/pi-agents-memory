@@ -88,7 +88,16 @@ function extractField(indexContent: string, field: string): string {
     if (line.trim().startsWith(`- ${field}:`)) {
       let value = line.split(":", 2)[1]?.trim() ?? "";
       if (field === "Stack") {
-        value = value.split("(")[0].split("[")[0].trim().split(",")[0].trim();
+        value = value
+          .split("(")[0]
+          .split("[")[0]
+          .trim()
+          .split(",")[0]
+          // Stack can be free text like "TypeScript/Markdown memory tooling";
+          // only the first path segment is the directory name.
+          .split("/")[0]
+          .trim()
+          .toLowerCase();
       }
       return value;
     }
