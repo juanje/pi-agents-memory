@@ -36,7 +36,7 @@ Extracts memory from the conversation automatically:
 | Trigger     | Event                     | Behavior                                  |
 | ----------- | ------------------------- | ----------------------------------------- |
 | Session end | `session_shutdown` (quit) | Always saves                              |
-| Compaction  | `session_compact`         | Always saves                              |
+| Compaction  | `session_before_compact`  | Always saves                              |
 | Periodic    | `agent_end`               | Only when threshold reached (default: 10) |
 
 The threshold is configurable in `~/agents-memory/config.json`:

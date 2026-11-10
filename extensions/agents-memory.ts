@@ -431,7 +431,9 @@ export default function agentsMemory(pi: ExtensionAPI) {
     doSave(ctx);
   });
 
-  pi.on("session_compact", async (_event, ctx) => {
+  // Save before compaction discards context. session_compact fires after the
+  // compaction is applied (entries already trimmed), so it's too late there.
+  pi.on("session_before_compact", async (_event, ctx) => {
     if (!projectDir) return;
     doSave(ctx);
   });
