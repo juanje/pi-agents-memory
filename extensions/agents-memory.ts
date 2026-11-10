@@ -7,7 +7,7 @@
  * Runtime dependency: ~/agents-memory/ (or $AGENT_MEMORY_DIR)
  */
 
-import { execSync, spawn } from "node:child_process";
+import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, join } from "node:path";
