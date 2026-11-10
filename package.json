@@ -1,0 +1,51 @@
+{
+  "name": "pi-agents-memory",
+  "version": "0.1.0",
+  "description": "Cross-session persistent memory for Pi agents. Loads project context at session start and auto-saves conversation memory at session end.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Juanje Ojeda",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanje/pi-agents-memory.git"
+  },
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-coding-agent",
+    "memory",
+    "context",
+    "agents-memory"
+  ],
+  "files": [
+    "extensions",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "check": "tsc --noEmit && biome check . && vitest run"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-agent-core": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.14",
+    "@earendil-works/pi-coding-agent": "^0.79.8",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.0"
+  }
+}
