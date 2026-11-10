@@ -447,9 +447,9 @@ export {
   getMemoryDir,
   isPidAlive,
   MESSAGE_CUSTOM_TYPE,
+  RULES,
   readFileSafe,
   readJson,
-  RULES,
   SAVE_ENV_KEY,
   STACK_MARKERS,
 };

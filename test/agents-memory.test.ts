@@ -13,9 +13,9 @@ import agentsMemory, {
   filterConversation,
   findProject,
   MESSAGE_CUSTOM_TYPE,
+  RULES,
   readFileSafe,
   readJson,
-  RULES,
   SAVE_ENV_KEY,
   STACK_MARKERS,
 } from "../extensions/agents-memory.js";
@@ -38,14 +38,7 @@ afterEach(() => {
 
 function scaffoldMemoryDir(dir: string): string {
   const memDir = join(dir, "agents-memory");
-  for (const sub of [
-    "projects",
-    "stacks",
-    "teams",
-    "global",
-    "hooks/.state",
-    "commands",
-  ]) {
+  for (const sub of ["projects", "stacks", "teams", "global", "hooks/.state", "commands"]) {
     mkdirSync(join(memDir, sub), { recursive: true });
   }
   writeFileSync(join(memDir, "config.json"), '{"auto_save_threshold": 10}\n');
@@ -59,10 +52,7 @@ function scaffoldMemoryDir(dir: string): string {
 function scaffoldProject(memDir: string, name: string): string {
   const dir = join(memDir, "projects", name);
   mkdirSync(join(dir, "logs"), { recursive: true });
-  writeFileSync(
-    join(dir, "index.md"),
-    `# ${name}\n\n- Stack: python\n- Team: backend\n`,
-  );
+  writeFileSync(join(dir, "index.md"), `# ${name}\n\n- Stack: python\n- Team: backend\n`);
   writeFileSync(
     join(dir, "latest-sessions.md"),
     "# Latest sessions\n\n## 2026-11-09\n\nRefactored auth module.\n",
