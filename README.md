@@ -70,7 +70,7 @@ Projects with a `.skip` file in their memory directory are excluded.
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
 
 ## Author
 
