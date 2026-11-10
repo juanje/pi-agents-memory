@@ -10,8 +10,14 @@ anything.
 ## Install
 
 ```bash
+# From npm (once published)
 pi install npm:pi-agents-memory
+
+# From a local checkout
+pi install ./path/to/pi-agents-memory
 ```
+
+Uninstall with `pi remove pi-agents-memory`.
 
 Requires an [agents-memory](https://github.com/juanje/agents-memory) instance
 at `~/agents-memory/` (or `$AGENT_MEMORY_DIR`).
