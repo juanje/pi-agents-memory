@@ -1,6 +1,6 @@
 {
   "name": "pi-agents-memory",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cross-session persistent memory for Pi agents. Loads project context at session start and auto-saves conversation memory at session end.",
   "type": "module",
   "license": "MIT",
